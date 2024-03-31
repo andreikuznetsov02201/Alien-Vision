@@ -16,15 +16,35 @@ class AlienInvasion:#класс для управления кода
 
         self.ship = Ship(self.screen)
 
-    def run_game(self):
+    def run_game(self):#основной цикл игы
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit
+            self._check_events()
+            self.ship.update()
+            self._update_screen()
+    def _check_events(self):
+        #обрабатывается нажатие клавиш
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit
+            elif event.type == pygame.KEYDOWN:#активирование клавиатуры
+                if event.key == pygame.K_RIGHT:#проверка нажатия
+                    self.ship.moving_right = True
+  
+                elif event.key == pygame.K_LEFT:#!!!
+                    self.ship.moving_left = True
 
-            pygame.display.flip()
-            self.screen.fill(self.settings.bg_color)
-            self.ship.blitme()
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+                elif event.key == pygame.K_LEFT:#!!!
+                    self.ship.moving_left = False
+
+    def _update_screen(self):
+        #Обновляет изображение на экране
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+        
+        pygame.display.flip()
 
 if __name__ == "__main__":
     ai = AlienInvasion()
