@@ -28,8 +28,7 @@ class AlienInvasion:#класс для управления кода
                 sys.exit
             elif event.type == pygame.KEYDOWN:#активирование клавиатуры
                 if event.key == pygame.K_RIGHT:#проверка нажатия
-                    self.ship.moving_right = True
-  
+                    self.ship.moving_right = True  
                 elif event.key == pygame.K_LEFT:#!!!
                     self.ship.moving_left = True
 
