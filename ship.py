@@ -24,7 +24,7 @@ class Ship():
 
     def update(self):
         if self.moving_right:
-            self.x += self.settings.ship_speed            
+            self.x += self.settings.ship_speed#не выделяется            
         if self.moving_left:
             self.x -= self.settings.ship_speed
 
