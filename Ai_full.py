@@ -19,7 +19,10 @@ class AlienInvasion:#класс для управления кода
         pygame.display.set_caption("Alien Inavasion")
 
         self.ship = Ship(self)
+<<<<<<< HEAD
         self.bullets = pygame.sprite.Group()
+=======
+>>>>>>> 1577241a9057108df780986e58e35eb4186119b8
 
     def run_game(self):#основной цикл игы
         while True:
@@ -34,6 +37,7 @@ class AlienInvasion:#класс для управления кода
             if event.type == pygame.QUIT:
                 sys.exit
             elif event.type == pygame.KEYDOWN:#активирование клавиатуры
+<<<<<<< HEAD
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
@@ -61,6 +65,18 @@ class AlienInvasion:#класс для управления кода
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
 
+=======
+                if event.key == pygame.K_RIGHT:#проверка нажатия
+                    self.ship.moving_right = True  
+                elif event.key == pygame.K_LEFT:#!!!TRUE
+                    self.ship.moving_left = True
+
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+                elif event.key == pygame.K_LEFT:#!!!FALSE
+                    self.ship.moving_left = False
+>>>>>>> 1577241a9057108df780986e58e35eb4186119b8
 
     def _update_screen(self):
         #Обновляет изображение на экране и отображает новый
