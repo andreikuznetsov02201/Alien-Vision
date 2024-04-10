@@ -15,13 +15,13 @@ class Bullet(Sprite):
         #Позиция снаряда
         self.y = float(self.rect.y)
     
-        def update(self):
-            #Перемещает снаряд вверх и обновление позиции
-            self.y -= self.settings.bullet_speed
-            #Обновление позиции
-            self.rect.y = self.y
+    def update(self):
+        #Перемещает снаряд вверх и обновление позиции
+        self.y -= self.settings.bullet_speed
+        #Обновление позиции
+        self.rect.y = self.y
 
-        def draw_bullet(self):
-            #Вывод снаряда на экран
-            pygame.draw.rect(self.screen, self.color, self.rect)
+    def draw_bullet(self):
+        #Вывод снаряда на экран
+        pygame.draw.rect(self.screen, self.color, self.rect)
 #dddd

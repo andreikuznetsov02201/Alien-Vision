@@ -13,4 +13,4 @@ class Settings():
         self.bullet_height = 15
         self.bullet_weight = 3
         self.bullet_color = (60, 60, 60)
-#ddd
+#dddddd
