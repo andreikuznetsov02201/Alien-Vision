@@ -4,11 +4,7 @@ class Ship():
     def __init__(self, ai_game):
         self.screen = ai_game.screen
         self.settings = ai_game.settings
-<<<<<<< HEAD
         self.screen_rect = ai_game.screen.get_rect()#!!!
-=======
-        self.screen_rect = ai_game.screen.get_rect()
->>>>>>> 1577241a9057108df780986e58e35eb4186119b8
 
         #self.moving_right = False
         #self.moving_left = False
@@ -36,3 +32,4 @@ class Ship():
             
     def blitme(self):
         self.screen.blit(self.image, self.rect)
+#ddd

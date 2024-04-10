@@ -9,7 +9,7 @@ class Bullet(Sprite):
         self.color = self.settings.bullet_color
 
         #Создание снаряда и назначение позиции
-        self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
+        self.rect = pygame.Rect(0, 0, self.settings.bullet_weight, self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
         
         #Позиция снаряда
@@ -24,3 +24,4 @@ class Bullet(Sprite):
         def draw_bullet(self):
             #Вывод снаряда на экран
             pygame.draw.rect(self.screen, self.color, self.rect)
+#dddd
