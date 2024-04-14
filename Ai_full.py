@@ -23,10 +23,10 @@ class AlienInvasion:#класс для управления кода
 
     def run_game(self):#основной цикл игы
         while True:
-            self._check_events()
-            self.ship.update()
             self._update_screen()
-            self.bullets.update()
+            self._check_events()
+            self.ship.update()            
+            self.bullets.update()   
     
     def _check_events(self):
         #обрабатывается нажатие клавиш
@@ -68,7 +68,7 @@ class AlienInvasion:#класс для управления кода
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()        
-            pygame.display.flip()
+        pygame.display.flip()#изменено!
 
 if __name__ == "__main__":
     ai = AlienInvasion()
