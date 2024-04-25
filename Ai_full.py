@@ -4,6 +4,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class AlienInvasion:#класс для управления кода
 
@@ -20,14 +21,19 @@ class AlienInvasion:#класс для управления кода
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
     def run_game(self):#основной цикл игы
+        #Основные процессы
         while True:
             self._check_events()
             self.ship.update()
-            self._update_screen()
             self.bullets.update()
-    
+            self._update_screen()
+            self._update_bullets()
+                        
     def _check_events(self):
         #обрабатывается нажатие клавиш
         for event in pygame.event.get():
@@ -58,17 +64,32 @@ class AlienInvasion:#класс для управления кода
 
     def _fire_bullet(self):
         #Создаем новый снаряд
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
-
-
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+ 
     def _update_screen(self):
         #Обновляет изображение на экране и отображает новый
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         for bullet in self.bullets.sprites():
-            bullet.draw_bullet()        
-            pygame.display.flip()
+            bullet.draw_bullet()
+        self.aliens.draw(self.screen)        
+        pygame.display.flip()#прорисовывает последний экран только под конец игры
+
+    def _update_bullets(self):
+        #Обновляет позиции снарярядов и уничтожает старые снраряды
+        #Обновление позиций снарядов
+        self.bullets.update()
+        #Удаление снапрядов вышедших за край экрана
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        print(len(self.bullets))#показывает сколько снарядов сейчас в игре (не обязательная)
+
+    def _create_fleet(self):
+        alien = Alien(self)
+        self.aliens.add(alien)
 
 if __name__ == "__main__":
     ai = AlienInvasion()
