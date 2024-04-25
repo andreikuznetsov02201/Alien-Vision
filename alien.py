@@ -17,4 +17,4 @@ class Alien(Sprite):
 
         #сохранениеточной горизонтальной позиции пришельца
         self.x = float(self.rect.x)
-        #ggg
+        #gggg
