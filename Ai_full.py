@@ -5,6 +5,7 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from star import Star
 
 class AlienInvasion:#класс для управления кода
 
@@ -75,6 +76,7 @@ class AlienInvasion:#класс для управления кода
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)        
+        
         pygame.display.flip()#прорисовывает последний экран только под конец игры
 
     def _update_bullets(self):
@@ -88,13 +90,67 @@ class AlienInvasion:#класс для управления кода
         print(len(self.bullets))#показывает сколько снарядов сейчас в игре (не обязательная)
 
     def _create_fleet(self):
+        #Создает флот с пришельцами#
+        #создание пришельца и вычисление количества пришельцев в ряду
+        #интервал между соседними пришельцами равен ширине пришельца
         alien = Alien(self)
+        #alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+        
+        #определяет колтчество рядов котооые поместятся на экране
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
+        number_rows = available_space_y // (2 * alien_height)
+
+        #создание флота
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
+
+        #создание первого ряда пришельцев
+        for alien_number in range(number_aliens_x):
+            self._create_alien(alien_number, row_number)
+
+    def _create_alien(self, alien_number, row_number):
+        #созданеи пришельца и размещение его в ряду
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        #alien_width = alien.rect.width
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
+
+    #Создание звездной сетки по первому примеру
+    def _create_star_fleet(self):
+        star = Star(self)
+        star_width, star_height = star.rect.size
+        available_space_x = self.settings.screen_width - (2 * star_width)
+        number_stars_x = available_space_x // (2 * star_width)
+
+        ship_height1 = self.ship.rect.height#возможно придется изменить
+        available_space_y1 = (self.settings.screen_height - (3 * star_height) - ship_height1)
+        number_rows1 = available_space_y1 // (2 * star_height)
+
+        for row_number in range(number_rows1):
+            for star_number in range(number_stars_x):
+                self._create_star(row_number, star_number)
+
+    def _create_star(self, row_number, star_number):
+        star = Star(self)
+        star_width, star_height = star.rect.size
+        star.x = star_width + 2 * star_width * star_number
+        star.rect.x = star.x
+        star.rect.y = star.rect.height + 2 * star.rect.height * row_number
+        self.stars.add(star)
+
 
 if __name__ == "__main__":
     ai = AlienInvasion()
     ai.run_game()
-#ddddddddd       
+#ddddddd 
 
 
 
