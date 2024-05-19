@@ -6,6 +6,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from star import Star
+from random import randint
 
 class AlienInvasion:#класс для управления кода
 
@@ -23,8 +24,10 @@ class AlienInvasion:#класс для управления кода
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
+        self.stars = pygame.sprite.Group()#добавлено
 
         self._create_fleet()
+        self._create_star_fleet()
 
     def run_game(self):#основной цикл игы
         #Основные процессы
@@ -75,7 +78,8 @@ class AlienInvasion:#класс для управления кода
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
-        self.aliens.draw(self.screen)        
+        self.aliens.draw(self.screen)
+        self.stars.draw(self.screen)#добавлено        
         
         pygame.display.flip()#прорисовывает последний экран только под конец игры
 
@@ -122,20 +126,21 @@ class AlienInvasion:#класс для управления кода
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
-
+     
+    """Создание звездного неба"""
     #Создание звездной сетки по первому примеру
     def _create_star_fleet(self):
         star = Star(self)
         star_width, star_height = star.rect.size
-        available_space_x = self.settings.screen_width - (2 * star_width)
-        number_stars_x = available_space_x // (2 * star_width)
+        available_space_x1 = self.settings.screen_width - (2 * star_width)
+        number_stars_x1 = available_space_x1 // (2 * star_width)
 
         ship_height1 = self.ship.rect.height#возможно придется изменить
         available_space_y1 = (self.settings.screen_height - (3 * star_height) - ship_height1)
         number_rows1 = available_space_y1 // (2 * star_height)
 
         for row_number in range(number_rows1):
-            for star_number in range(number_stars_x):
+            for star_number in range(number_stars_x1):
                 self._create_star(row_number, star_number)
 
     def _create_star(self, row_number, star_number):
@@ -144,13 +149,12 @@ class AlienInvasion:#класс для управления кода
         star.x = star_width + 2 * star_width * star_number
         star.rect.x = star.x
         star.rect.y = star.rect.height + 2 * star.rect.height * row_number
+        #random_star = (-10, 10)
         self.stars.add(star)
+        #return random_star#новая
 
 
 if __name__ == "__main__":
     ai = AlienInvasion()
     ai.run_game()
-#ddddddd 
-
-
-
+#dd
