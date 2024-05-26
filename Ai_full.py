@@ -78,8 +78,9 @@ class AlienInvasion:#класс для управления кода
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.stars.draw(self.screen)#добавлено      
         self.aliens.draw(self.screen)
-        self.stars.draw(self.screen)#добавлено        
+        
         
         pygame.display.flip()#прорисовывает последний экран только под конец игры
 
@@ -132,11 +133,12 @@ class AlienInvasion:#класс для управления кода
     def _create_star_fleet(self):
         star = Star(self)
         star_width, star_height = star.rect.size
+
+        
         available_space_x1 = self.settings.screen_width - (2 * star_width)
         number_stars_x1 = available_space_x1 // (2 * star_width)
 
-        ship_height1 = self.ship.rect.height#возможно придется изменить
-        available_space_y1 = (self.settings.screen_height - (3 * star_height) - ship_height1)
+        available_space_y1 = (self.settings.screen_height - (3 * star_height))
         number_rows1 = available_space_y1 // (2 * star_height)
 
         for row_number in range(number_rows1):
@@ -149,12 +151,15 @@ class AlienInvasion:#класс для управления кода
         star.x = star_width + 2 * star_width * star_number
         star.rect.x = star.x
         star.rect.y = star.rect.height + 2 * star.rect.height * row_number
-        #random_star = (-10, 10)
+        delta = 15
+        star.rect.x += randint(-delta, delta)
+        star.rect.y += randint(-delta, delta)
         self.stars.add(star)
+        
         #return random_star#новая
 
 
 if __name__ == "__main__":
     ai = AlienInvasion()
     ai.run_game()
-#dd
+#ddввв

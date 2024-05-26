@@ -7,7 +7,7 @@ class Star(Sprite):
         super().__init__()
         self.screen = ai_game.screen
 
-        self.image = pygame.image.load("images/star_photo.png")
+        self.image = pygame.image.load("images/star_transparent.png")
         self.rect = self.image.get_rect()
 
         self.rect.x = self.rect.width
@@ -15,8 +15,8 @@ class Star(Sprite):
 
         self.x = float(self.rect.x)
         
-        random_number = randint(-10, 10)
-        return random_number
-#ddd
+        #random_number = randint(-10, 10)
+        #return random_number
+#dddувы
 
 
