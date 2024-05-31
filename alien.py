@@ -8,7 +8,7 @@ class Alien(Sprite):
         self.screen = ai_game.screen
 
         #загрузка изображения
-        self.image = pygame.image.load("images/alien_photo.png")
+        self.image = pygame.image.load("images/alien_ship_new.png")
         self.rect = self.image.get_rect()
 
         #каждый новый пришелец появляется в левом верхнем углу

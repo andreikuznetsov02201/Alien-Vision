@@ -92,7 +92,7 @@ class AlienInvasion:#класс для управления кода
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
-        print(len(self.bullets))#показывает сколько снарядов сейчас в игре (не обязательная)
+        #print(len(self.bullets))#показывает сколько снарядов сейчас в игре (не обязательная)
 
     def _create_fleet(self):
         #Создает флот с пришельцами#
@@ -136,10 +136,10 @@ class AlienInvasion:#класс для управления кода
 
         
         available_space_x1 = self.settings.screen_width - (2 * star_width)
-        number_stars_x1 = available_space_x1 // (2 * star_width)
+        number_stars_x1 = available_space_x1 // (5 * star_width)
 
         available_space_y1 = (self.settings.screen_height - (3 * star_height))
-        number_rows1 = available_space_y1 // (2 * star_height)
+        number_rows1 = available_space_y1 // (5 * star_height)
 
         for row_number in range(number_rows1):
             for star_number in range(number_stars_x1):
@@ -148,10 +148,10 @@ class AlienInvasion:#класс для управления кода
     def _create_star(self, row_number, star_number):
         star = Star(self)
         star_width, star_height = star.rect.size
-        star.x = star_width + 2 * star_width * star_number
+        star.x = star_width + 5 * star_width * star_number
         star.rect.x = star.x
-        star.rect.y = star.rect.height + 2 * star.rect.height * row_number
-        delta = 15
+        star.rect.y = star.rect.height + 5 * star.rect.height * row_number
+        delta = 30
         star.rect.x += randint(-delta, delta)
         star.rect.y += randint(-delta, delta)
         self.stars.add(star)
