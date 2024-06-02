@@ -18,6 +18,6 @@ class Settings():
         self.bullets_allowed = 3
         #Скорость пришельца
         self.alien_speed = 1.0
-        self.fleet_drop_speed = 10#10
+        self.fleet_drop_speed = 100#10
         self.fleet_direction = 1
         #fleet_direction 1 это право, а -1 это лево
