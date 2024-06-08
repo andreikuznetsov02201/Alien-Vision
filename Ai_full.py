@@ -45,7 +45,7 @@ class AlienInvasion:#класс для управления кода
             
             if self.stats.game_active:            
                 self.ship.update()
-                self.bullets.update()
+                #self.bullets.update()
                 self._update_aliens()
                 self._update_bullets()
 
