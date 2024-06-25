@@ -4,6 +4,7 @@ import pygame
 
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import ScoreBoard
 from button import Button
 from ship import Ship
 from bullet import Bullet
@@ -24,8 +25,9 @@ class AlienInvasion:#класс для управления кода
         #self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))  
         pygame.display.set_caption("Alien Inavasion")
 
-        #Создание экземпляра для хранения игровой статистики
+        #Создание экземпляра для хранения игровой статистики и панели результатов
         self.stats = GameStats(self)
+        self.sb = ScoreBoard(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -65,8 +67,25 @@ class AlienInvasion:#класс для управления кода
                 self._check_play_button(mouse_pos)
 
     def _check_play_button(self, mouse_pos):
-        if self.play_button.rect.collidepoint(mouse_pos):
+        """Запускает новую игру принажатии кнопки Play"""
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            #Сброс игровых настроек
+            self.settings.initialize_dynamic_settings()
+            #сброс игровой статистики
+            self.stats.reset_stats()
             self.stats.game_active = True
+            self.sb.prep_score()
+            #указатель мыши скрывается
+            pygame.mouse.set_visible(False)
+
+            #очистка списков пришельцев и снарядов
+            self.aliens.empty()
+            self.bullets.empty()
+
+            #создание нового флота и размещение корабля в центре
+            self._create_fleet()
+            self.ship.center_ship()
     
     def _check_keydown_events(self, event):
         #НАЖАТИЕ КЛАВИШ
@@ -101,6 +120,9 @@ class AlienInvasion:#класс для управления кода
         self.stars.draw(self.screen)#добавлено      
         self.aliens.draw(self.screen)
 
+        #Вывод информации о счете
+        self.sb.show_score()
+
         if not self.stats.game_active:
             self.play_button.draw_button()
         
@@ -108,7 +130,7 @@ class AlienInvasion:#класс для управления кода
         pygame.display.flip()#прорисовывает последний экран только под конец игры
 
     def _update_bullets(self):
-        #Обновляет позиции снарярядов и уничтожает старые снраряды
+        """Обновляет позиции снарярядов и уничтожает старые снраряды"""
         #Обновление позиций снарядов
         self.bullets.update()
         #Удаление снапрядов вышедших за край экрана
@@ -119,15 +141,31 @@ class AlienInvasion:#класс для управления кода
 
         self._check_bullet_alien_collisions()
 
-        if not self.aliens:
-            self.bullets.empty()
-            self._create_fleet()
+        #if not self.aliens:
+            #self.bullets.empty()
+            #self._create_fleet()
+            #self.settings.increase_speed()
 
     def _check_bullet_alien_collisions(self):
         #проверка попаданий в пришельцев
         #при обнаружении попадания удалить снаярд и пришельца
         collisions = pygame.sprite.groupcollide(
         self.bullets, self.aliens, True, True)
+        
+        if not self.aliens:
+            self.bullets.empty()
+            self._create_fleet()
+            self.settings.increase_speed()
+        #self.settings.increase_speed()#скорость
+            #Увелечение уровня
+            self.stats.level += 1
+            self.sb.prep_level()
+
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.aliens_points * len(aliens)
+            self.sb.prep_score()
+            self.sb._check_high_score()#добавил sb
 
     def _update_aliens(self):
         #Обновляет позиции всех пришельцев во флоте
@@ -155,8 +193,9 @@ class AlienInvasion:#класс для управления кода
 
             #Пауза
             sleep(0.5)
-        else:
+        #else: здесь это не нужно!
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_aliens_bottom(self):
         """Проверяет добрались ли пришельцы до нижнего края экрана"""
@@ -247,4 +286,3 @@ class AlienInvasion:#класс для управления кода
 if __name__ == "__main__":
     ai = AlienInvasion()
     ai.run_game()
-
