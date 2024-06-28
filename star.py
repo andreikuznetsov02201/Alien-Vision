@@ -16,7 +16,7 @@ class Star(Sprite):
         self.x = float(self.rect.x)
         
         #random_number = randint(-10, 10)
-        #return random_number
+        #return random_numberr
 
 
 

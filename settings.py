@@ -33,7 +33,7 @@ class Settings():
         self.alien_speed_factor = 0.5#1.0
 
         self.fleet_direction = 1
-        #fleet_direction 1 это право, а -1 это лев
+        #fleet_direction 1 это право, а -1 это лево
         #Подсчет очков
         self.aliens_points = 50
 

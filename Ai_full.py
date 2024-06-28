@@ -76,6 +76,7 @@ class AlienInvasion:#класс для управления кода
             self.stats.reset_stats()
             self.stats.game_active = True
             self.sb.prep_score()
+            self.sb.prep_ships()#добавлено
             #указатель мыши скрывается
             pygame.mouse.set_visible(False)
 
@@ -141,10 +142,6 @@ class AlienInvasion:#класс для управления кода
 
         self._check_bullet_alien_collisions()
 
-        #if not self.aliens:
-            #self.bullets.empty()
-            #self._create_fleet()
-            #self.settings.increase_speed()
 
     def _check_bullet_alien_collisions(self):
         #проверка попаданий в пришельцев
@@ -182,6 +179,7 @@ class AlienInvasion:#класс для управления кода
         """Обрабатывает стокновение корабля с пришельцем"""
         if self.stats.ship_left > 0:#self не нужен
             self.stats.ship_left -= 1
+            self.sb.prep_ships()
 
             #Очистка списков пришельцев и снарядов
             self.aliens.empty()
