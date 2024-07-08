@@ -43,5 +43,6 @@ class Settings():
         self.bullet_speed_factor *= self.speedup_scale
         self.alien_speed_factor *= self.speedup_scale
 
-        self.aliens_points = int(self.aliens_points * self.score_scale)#возможно не рабочий метод
+        self.aliens_points = int(self.aliens_points * self.score_scale)
         #print(self.aliens_points)
+#Thats all

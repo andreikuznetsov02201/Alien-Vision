@@ -17,6 +17,4 @@ class Star(Sprite):
         
         #random_number = randint(-10, 10)
         #return random_numberr
-
-
-
+#Thats all

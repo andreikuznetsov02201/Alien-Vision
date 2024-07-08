@@ -32,7 +32,7 @@ class AlienInvasion:#класс для управления кода
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
-        self.stars = pygame.sprite.Group()#добавлено
+        self.stars = pygame.sprite.Group()
 
         self._create_fleet()
         self._create_star_fleet()
@@ -47,7 +47,6 @@ class AlienInvasion:#класс для управления кода
             
             if self.stats.game_active:            
                 self.ship.update()
-                #self.bullets.update()
                 self._update_aliens()
                 self._update_bullets()
 
@@ -277,8 +276,6 @@ class AlienInvasion:#класс для управления кода
         star.rect.x += randint(-delta, delta)
         star.rect.y += randint(-delta, delta)
         self.stars.add(star)
-        
-        #return random_star#новая
 
 
 if __name__ == "__main__":

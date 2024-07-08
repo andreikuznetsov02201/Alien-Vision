@@ -39,3 +39,4 @@ class Ship(Sprite):
         """Размещает корабль в центре нижней стороны"""
         self.rect.midbottom = self.screen_rect.midbottom
         self.x = float(self.rect.x)
+#Thats all

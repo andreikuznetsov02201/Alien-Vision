@@ -27,7 +27,6 @@ class ScoreBoard():
         """ Преобразует текущий счет в изображение"""
         rounded_score = round(self.stats.score, -1)#до десятков
         score_str = "{:,}".format(rounded_score)
-        #score_str = str(self.stats.score)
         self.score_image = self.font.render(score_str, True,
                 self.text_color, self.settings.bg_color)
         
@@ -78,3 +77,4 @@ class ScoreBoard():
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
         self.ships.draw(self.screen)
+#Thats all       
